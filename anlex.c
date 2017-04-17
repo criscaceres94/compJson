@@ -20,7 +20,7 @@ token t;				// token global para recibir componentes del Analizador Lexico
 
 // variables para el analizador lexico
 FILE *archivo_salida;	
-FILE *archivo;			// Fuente pascal
+FILE *archivo;			// Fuente JSON
 char id[TAMLEX];		// Utilizado por el analizador lexico
 int numLinea=1;			// Numero de Linea
 char c=0;
