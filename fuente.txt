@@ -1,8 +1,8 @@
 {  
    "personas":[  
       {  
-         "ci":4478566,
-         "nombre":"Cristian Cáceres",
+         "ci":1234567,
+         "nombre":"Julio Pérez",
          "casado":false,
          "hijos":[  
 

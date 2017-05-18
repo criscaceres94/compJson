@@ -19,8 +19,8 @@ char cad[5*TAMLEX];		// string utilizado para cargar mensajes de error
 token t;				// token global para recibir componentes del Analizador Lexico
 
 // variables para el analizador lexico
-FILE *archivo_salida;	
-FILE *archivo;			// Fuente JSON
+
+FILE *archivo;			// Fuente pascal
 char id[TAMLEX];		// Utilizado por el analizador lexico
 int numLinea=1;			// Numero de Linea
 char c=0;
@@ -33,7 +33,6 @@ char c=0;
 void error( string mensaje)
 {
 	printf("\nLin %d: Error Lexico. %s.\n",numLinea,mensaje);
-	fprintf(archivo_salida,"\nLin %d: Error Lexico. %s.\n",numLinea,mensaje);
 	
 		//Se ingonan los errores léxicos generados hasta que se llegue a una nueva línea
 		while(fgetc(archivo) != '\n'){
@@ -51,23 +50,17 @@ void sigLex()
     
 	while((c=fgetc(archivo))!=EOF)
 	{
-		if (c==' '){
-		printf("%c",c);
-		fprintf(archivo_salida," %c",c);
-            	continue;
-         }      
-        else if(c=='\t'){        
-		printf("%c",c);
-		fprintf(archivo_salida," %c",c);		
-		continue;
-		}
+		if (c==' ')
+            continue;
+               
+        else if(c=='\t')        
+            continue;
+
 		else if(c=='\n')
 		{
 			//incrementar el numero de linea
 			numLinea++;
-            	printf("%c",c);
-		fprintf(archivo_salida,"%c",c);
-		//printf("\n");
+            //printf("\n");
 		}
 
 		else if (isalpha(c))
@@ -343,9 +336,7 @@ void palabra_reservada(char id []){
        	error(cad);
     }
 }
-
-/*Main*/
-int main(int argc,char* args[])
+/*int main(int argc,char* args[])
 {
 	// inicializar analizador lexico
 	
@@ -356,24 +347,16 @@ int main(int argc,char* args[])
 			printf("Archivo no encontrado.\n");
 			exit(1);
 		}
-		archivo_salida=fopen("output.txt","a");
-		sigLex();
 		while (t.compLex!=EOF){
-			
-			if(t.componente){
-
-       			printf("%s ", t.componente);
-			fprintf(archivo_salida," %s",t.componente);
-			}
 			sigLex();
+			if(t.componente)
+       			printf("%s ", t.componente);
 		}
-
 		fclose(archivo);
-		fclose(archivo_salida);
 	}else{
 		printf("Debe pasar como parametro el path al archivo fuente.\n");
 		exit(1);
 	}
 
 	return 0;
-}
+}*/
