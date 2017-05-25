@@ -2,13 +2,13 @@
 Proyecto Compiladores 2017 FP-UNA
 
 Pasos:
-1. Compilar $ gcc parser.c -o programa 
+1. Compilar $ gcc traductor.c -o programa 
 2. ejecutar $ ./programa fuente.txt
 
 Nota:
 * Al programa se debe pasar el archivo fuente.txt
-* El fuente.txt , anlex.c y el archivo anlex.h tiene que estar en el mismo 
-directorio que el archivo parser.c
+* El fuente.txt , anlex.c, anlex.h  y el archivo parser.c tiene que estar en el mismo 
+directorio que el archivo traductor.c
 
 
 -Integrantes:
