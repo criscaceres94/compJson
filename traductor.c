@@ -4,7 +4,7 @@
 #include <ctype.h>
 #include <string.h>
 #define CANT_COMP_LEX 10
-
+FILE *archivo_salida;
 void json_trad();
 void element_trad();
 void array_trad();
@@ -30,6 +30,7 @@ void string_sin_comillas(char* cadena){
     int i=1;
     while(string[i] != '"'){
         printf("%c",string[i]);
+fprintf(archivo_salida,"%c",string[i]); 
         i++;
     }
 }
@@ -37,6 +38,7 @@ void print_tab(){
     int i=0;
     for (i=1;i<=tabulacion;i++){
         printf(" ");
+fprintf(archivo_salida," "); 
     }
 }
 
@@ -71,13 +73,16 @@ void arrayB_trad(){
     
     if(t.compLex == L_CORCHETE || t.compLex == L_LLAVE){
         printf("\n");
+fprintf(archivo_salida,"\n"); 
         print_tab();
         printf("<item>\n");
+fprintf(archivo_salida,"<item>\n"); 
         tabulacion+=4;
         element_list_trad();
         match(R_CORCHETE);
         print_tab();
         printf("</item>\n");
+fprintf(archivo_salida,"</item>\n"); 
     }
     else if(t.compLex == R_CORCHETE){
         tabulacion-=4;
@@ -107,9 +112,11 @@ void element_listB_trad(){
         match(COMA);
         //  tabulacion-=4;
         print_tab();
-        printf("</item>\n");
+               printf("</item>\n");
+fprintf(archivo_salida,"</item>\n"); 
         print_tab();
         printf("<item>\n");
+fprintf(archivo_salida,"<item>\n"); 
         tabulacion+=4;
         element_trad();
         element_listB_trad();
@@ -172,13 +179,17 @@ void attribute_trad(){
         char lexema[TAMLEX];
         strcpy(lexema,t.lexema);
         printf("<");
+fprintf(archivo_salida,"<"); 	
         attribute_name_trad();
         printf(">");
+fprintf(archivo_salida,">"); 
         match(DOS_PUNTOS);
         attribute_value_trad();
         printf("</");
+fprintf(archivo_salida,"</"); 
         string_sin_comillas(lexema);
-        printf(">\n");    
+        printf(">\n"); 
+fprintf(archivo_salida,">\n");   
     }
 }
 
@@ -200,22 +211,27 @@ void attribute_value_trad(){
     }
     else if(t.compLex == LITERAL_CADENA){
         printf("%s",t.lexema);
+fprintf(archivo_salida," %s",t.lexema);
         match(LITERAL_CADENA);
     }
     else if(t.compLex == LITERAL_NUM){
         printf("%s",t.lexema);
+fprintf(archivo_salida," %s",t.lexema);
         match(LITERAL_NUM);
     }
     else if(t.compLex == PR_TRUE){
         printf("%s",t.lexema);
+fprintf(archivo_salida," %s",t.lexema);
         match(PR_TRUE);
     }
     else if(t.compLex == PR_FALSE){
         printf("%s",t.lexema);
+fprintf(archivo_salida," %s",t.lexema);
         match(PR_FALSE);
     }
     else if(t.compLex == PR_NULL){
         printf("%s",t.lexema);
+fprintf(archivo_salida," %s",t.lexema);
         match(PR_NULL);
     }
 }
@@ -233,12 +249,20 @@ int main (int argc,char* args[]){
         }
         sigLex();
         json();
+	archivo_salida=fopen("archivo_salida.xml","a");
         if(accept){
             fclose(archivo);
             archivo=fopen(args[1],"rt");
+	    
             sigLex();
             json_trad();
+	    
         }
+	else{	
+		fprintf(archivo_salida,"\n Error sintacticamente");
+		
+	}
+	fclose(archivo_salida);
     }else{
         printf("Debe pasar como parametro el path al archivo fuente.\n");
         exit(1);
