@@ -56,7 +56,7 @@ void error_sint(int sincronizacion [])
     accept=0;
    	printf("\nError sintactico en linea: %d. No se esperaba %s.\n",numLinea,t.componente);
 	int i = 0;
-    while(t.compLex != sincronizacion[i] && t.compLex != EOF){   
+    /*while(t.compLex != sincronizacion[i] && t.compLex != EOF){   
         if (sincronizacion[i] == '\0')
         {
             sigLex();
@@ -65,12 +65,47 @@ void error_sint(int sincronizacion [])
         i++;
     }
     sigLex();
-    return;    	   
+    return;*/ 
+
+   	//int i=0;
+    int ban=0;
+    int tam= 8;
+    int tam1 = 16;
+    int j;
+//printf("\n%d",t.compLex);
+do{
+        while(i<tam1)
+        { 
+            if(t.compLex != sincronizacion[i] && t.compLex != EOF)
+            {
+                // Poner bandera y si no esta en el set de sincronizaciones entonces hacer get y volver a empezar el for o do while.
+                ban = 1;
+                i++;
+		//printf("\n%d",sincronizacion[i]);
+		//printf("if 1");
+            }else{
+		//printf("if 2");
+                ban=0;
+                i=16;
+                break;
+            }
+       }
+       if(ban==1)
+       {
+           sigLex();
+           i=0;
+       }
+	//printf("llego aca");
+    }while(i<tam1);
+
+
+
+//return;   
 }
 
 void check_input(int primero[], int siguiente[])
 {
-    int syncset[]={CANT_COMP_LEX};
+    int syncset[CANT_COMP_LEX];
     int i=0;
     if(t.compLex == EOF) return;    
     while(primero[i] != '\0') 
