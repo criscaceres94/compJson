@@ -56,7 +56,7 @@ void error_sint(int sincronizacion [])
     accept=0;
    	printf("\nError sintactico en linea: %d. No se esperaba %s.\n",numLinea,t.componente);
 	int i = 0;
-    /*while(t.compLex != sincronizacion[i] && t.compLex != EOF){   
+    while(t.compLex != sincronizacion[i] && t.compLex != EOF){   
         if (sincronizacion[i] == '\0')
         {
             sigLex();
@@ -65,8 +65,8 @@ void error_sint(int sincronizacion [])
         i++;
     }
     sigLex();
-    return;*/ 
-
+    return;
+/*
    	//int i=0;
     int ban=0;
     int tam= 8;
@@ -100,7 +100,7 @@ do{
 
 
 
-//return;   
+//return;   */
 }
 
 void check_input(int primero[], int siguiente[])
