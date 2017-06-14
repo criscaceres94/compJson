@@ -64,7 +64,7 @@ void array_trad(){
         
         match(L_CORCHETE);
         arrayB_trad();
-
+	print_tab();
     }
 }
 
@@ -83,6 +83,7 @@ fprintf(archivo_salida,"<item>\n");
         print_tab();
         printf("</item>\n");
 fprintf(archivo_salida,"</item>\n"); 
+	tabulacion-=4;
     }
     else if(t.compLex == R_CORCHETE){
         tabulacion-=4;
